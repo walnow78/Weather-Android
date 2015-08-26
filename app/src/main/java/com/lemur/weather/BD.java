@@ -17,7 +17,7 @@ public class BD {
     private ArrayList<Geolocation> geolocations;
 
     public BD(Context context){
-        usdbh = new GeoSQLiteHelper(context, "Geolocation", null, 1);
+        usdbh = new GeoSQLiteHelper(context, "Geolocation", null, 2);
         geolocations = new ArrayList<Geolocation>();
     }
 
@@ -32,6 +32,7 @@ public class BD {
                 ContentValues reg = new ContentValues();
 
                 reg.put("name", geolocation.getName());
+                reg.put("description", geolocation.getName());
                 reg.put("latitude", geolocation.getLatitude());
                 reg.put("longitude", geolocation.getLongitude());
                 reg.put("south", geolocation.getSouth());
