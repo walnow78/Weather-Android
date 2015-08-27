@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Weather</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_suggestion">SuggestionActivity</string>
-    <string name="title_activity_detail">Map</string>
+    <string name="main_activity">Weather</string>
+    <string name="action_search">Search</string>
+    <string name="title_activity_suggestion">Suggestions</string>
+    <string name="title_activity_detail">Detail</string>
+    <string name="title_activity_detail_map">Detail</string>
 </resources>

@@ -60,6 +60,7 @@ public class GeoAdapter extends ArrayAdapter {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.v("geo", response.toString());
                         items = parseJson(response);
                         notifyDataSetChanged();
                     }
@@ -90,7 +91,6 @@ public class GeoAdapter extends ArrayAdapter {
         View listItemView = convertView;
 
         listItemView = layoutInflater.inflate(R.layout.geo_row, parent, false);
-
 
         // Get current item
         Geolocation item = items.get(position);
@@ -126,6 +126,8 @@ public class GeoAdapter extends ArrayAdapter {
                     String countryName = geo.getString("countryName");
                     String asciiName = geo.getString("asciiName");
 
+                    String geonameId = geo.getString("geonameId");
+
                     if (geo.has("bbox")) {
 
                         JSONObject bbox = geo.getJSONObject("bbox");
@@ -139,7 +141,7 @@ public class GeoAdapter extends ArrayAdapter {
                     double latitude = geo.getDouble("lat");
                     double longitude = geo.getDouble("lng");
 
-                    Geolocation geolocation = new Geolocation(asciiName, countryName, latitude, longitude, south, north, east, west);
+                    Geolocation geolocation = new Geolocation(asciiName + "-" + geonameId.toString(), countryName, latitude, longitude, south, north, east, west);
 
                     geolocations.add(geolocation);
 

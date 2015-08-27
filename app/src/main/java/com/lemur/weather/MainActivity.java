@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         geoadapter = new GeoAdapter(this);
         lv_geo.setAdapter(geoadapter);
 
+        geoadapter.notifyDataSetChanged();
+
         geoadapter.RetriveFromDB();
 
         lv_geo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
                 bd.InsertGeolocation(geoadapter.items.get(position));
 
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                Intent intent = new Intent(MainActivity.this, DetailMapActivity.class);
 
                 intent.putExtra("geo", geoadapter.items.get(position));
 

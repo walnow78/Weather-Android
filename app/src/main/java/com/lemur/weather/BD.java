@@ -17,7 +17,7 @@ public class BD {
     private ArrayList<Geolocation> geolocations;
 
     public BD(Context context){
-        usdbh = new GeoSQLiteHelper(context, "Geolocation", null, 2);
+        usdbh = new GeoSQLiteHelper(context, "Geolocation", null, 1);
         geolocations = new ArrayList<Geolocation>();
     }
 

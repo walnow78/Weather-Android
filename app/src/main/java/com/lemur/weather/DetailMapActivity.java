@@ -1,10 +1,12 @@
 package com.lemur.weather;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -26,23 +28,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DetailActivity extends FragmentActivity {
+public class DetailMapActivity extends AppCompatActivity {
 
-    private GoogleMap mMap;
     private Geolocation geo;
     private static final String TAG= "Weather";
     private RequestQueue requestQueue;
     private TextView tv_temp_progress, tv_temp_text;
-
+    private GoogleMap mMap;
     JsonObjectRequest jsArrayRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail_map);
 
         tv_temp_progress = (TextView) findViewById(R.id.tv_temp_progress);
         tv_temp_text = (TextView) findViewById(R.id.tv_temp_text);
-
+        mMap = ((SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map)).getMap();
 
         Intent intent = getIntent();
         geo = (Geolocation) intent.getSerializableExtra("geo");
@@ -76,32 +79,14 @@ public class DetailActivity extends FragmentActivity {
 
                     }
                 }
+
         );
 
         // Add current request to queue.
         requestQueue.add(jsArrayRequest);
 
-        setUpMapIfNeeded();
-    }
+        setUpMap();
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setUpMapIfNeeded();
-    }
-
-
-    private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap();
-            }
-        }
     }
 
     private void setUpMap() {
@@ -149,6 +134,12 @@ public class DetailActivity extends FragmentActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpMap();
+    }
+
     public class ResizeWidthAnimation extends Animation
     {
         private int mWidth;
@@ -183,5 +174,4 @@ public class DetailActivity extends FragmentActivity {
             return true;
         }
     }
-
 }
