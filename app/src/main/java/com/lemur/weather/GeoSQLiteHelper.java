@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class GeoSQLiteHelper extends SQLiteOpenHelper {
 
-    String sqlCreate = "CREATE TABLE Geolocation (name TEXT, description TEXT, latitude REAL, longitude REAL, south REAL," +
+    String sqlCreate = "CREATE TABLE Geolocation (geoId INTEGER, name TEXT, description TEXT, latitude REAL, longitude REAL, south REAL," +
             "north REAL, east REAL, west REAL )";
 
     public GeoSQLiteHelper(Context contexto, String nombre, SQLiteDatabase.CursorFactory factory, int version) {

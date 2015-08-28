@@ -23,7 +23,7 @@ public class BD {
 
     public void InsertGeolocation(Geolocation geolocation) {
 
-        if (!ExistGeolocation(geolocation.getLatitude(), geolocation.getLongitude())){
+        if (!ExistGeolocation(geolocation.getGeoId())){
 
             SQLiteDatabase db = usdbh.getWritableDatabase();
 
@@ -31,8 +31,9 @@ public class BD {
 
                 ContentValues reg = new ContentValues();
 
+                reg.put("geoId", geolocation.getGeoId());
                 reg.put("name", geolocation.getName());
-                reg.put("description", geolocation.getName());
+                reg.put("description", geolocation.getDescription());
                 reg.put("latitude", geolocation.getLatitude());
                 reg.put("longitude", geolocation.getLongitude());
                 reg.put("south", geolocation.getSouth());
@@ -49,15 +50,15 @@ public class BD {
         }
     }
 
-    public boolean ExistGeolocation(double latitude, double longitude){
+    public boolean ExistGeolocation(int geoId){
 
         SQLiteDatabase db = usdbh.getReadableDatabase();
 
         if (db != null) {
 
-            String[] args = new String[]{String.valueOf(latitude), String.valueOf(longitude)};
+            String[] args = new String[]{String.valueOf(geoId)};
 
-            Cursor cursor = db.rawQuery(" SELECT name FROM Geolocation WHERE latitude=? AND longitude =?", args);
+            Cursor cursor = db.rawQuery(" SELECT name FROM Geolocation WHERE geoId =?", args);
 
             if (!cursor.moveToFirst()) {
                 Log.v("geo", "no existe");
@@ -80,23 +81,27 @@ public class BD {
         SQLiteDatabase db = usdbh.getReadableDatabase();
 
         if (db != null) {
-            String[] columns = new String[]{"name", "description", "latitude", "longitude", "south", "north", "east", "west"};
+            try {
+                String[] columns = new String[]{"geoId", "name", "description", "latitude", "longitude", "south", "north", "east", "west"};
 
-            Cursor cursor = db.query("Geolocation", columns, null, null, null, null, null);
+                Cursor cursor = db.query("Geolocation", columns, null, null, null, null, null);
 
-            if (cursor.moveToFirst()) {
+                if (cursor.moveToFirst()) {
 
-                do {
+                    do {
 
-                    geolocations.add(new Geolocation(cursor.getString(0), cursor.getString(1),
-                            cursor.getDouble(2), cursor.getDouble(3), cursor.getDouble(4),
-                            cursor.getDouble(5), cursor.getDouble(6), cursor.getDouble(7)));
+                        geolocations.add(new Geolocation(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
+                                cursor.getDouble(3), cursor.getDouble(4), cursor.getDouble(5),
+                                cursor.getDouble(6), cursor.getDouble(7), cursor.getDouble(8)));
 
-                } while (cursor.moveToNext());
+                    } while (cursor.moveToNext());
 
+                }
+
+                db.close();
+            }catch(Exception ex){
+                Log.v("geo", ex.getLocalizedMessage());
             }
-
-            db.close();
         }
 
         return geolocations;

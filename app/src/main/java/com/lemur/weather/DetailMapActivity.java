@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -33,7 +31,7 @@ public class DetailMapActivity extends AppCompatActivity {
     private Geolocation geo;
     private static final String TAG= "Weather";
     private RequestQueue requestQueue;
-    private TextView tv_temp_progress, tv_temp_text;
+    private TextView tv_temp_progress, tv_temp_text, tv_country;
     private GoogleMap mMap;
     JsonObjectRequest jsArrayRequest;
 
@@ -42,6 +40,7 @@ public class DetailMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_map);
 
+        tv_country = (TextView) findViewById(R.id.tv_country);
         tv_temp_progress = (TextView) findViewById(R.id.tv_temp_progress);
         tv_temp_text = (TextView) findViewById(R.id.tv_temp_text);
         mMap = ((SupportMapFragment) getSupportFragmentManager()
@@ -49,6 +48,8 @@ public class DetailMapActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         geo = (Geolocation) intent.getSerializableExtra("geo");
+
+        setTitle(geo.getName());
 
         // Create de queue
         requestQueue= Volley.newRequestQueue(getApplicationContext());
@@ -58,6 +59,9 @@ public class DetailMapActivity extends AppCompatActivity {
                 "&east=" + String.valueOf(geo.getEast()) +
                 "&west=" + String.valueOf(geo.getWest()) +
                 "&username=ilgeonamessample";
+
+        requestQueue.cancelAll(this);
+
 
         // Create request
         jsArrayRequest = new JsonObjectRequest(
@@ -123,7 +127,8 @@ public class DetailMapActivity extends AppCompatActivity {
                 anim.setDuration(1000);
                 tv_temp_progress.startAnimation(anim);
 
-                tv_temp_text.setText("Temp: " + String.valueOf(temperature) + "C" );
+                tv_temp_text.setText("Temp: " + String.format("%.2f", temperature) + "C" );
+                tv_country.setText("Country: " + geo.getDescription());
             }
 
         } catch (JSONException e) {

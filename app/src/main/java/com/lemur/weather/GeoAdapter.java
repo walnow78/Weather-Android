@@ -123,14 +123,13 @@ public class GeoAdapter extends ArrayAdapter {
                     double north = 0;
                     double west = 0;
 
+                    int geoId =  geo.getInt("geonameId");
                     String countryName = geo.getString("countryName");
                     String asciiName = geo.getString("asciiName");
 
-                    String geonameId = geo.getString("geonameId");
-
                     if (geo.has("bbox")) {
 
-                        JSONObject bbox = geo.getJSONObject("bbox");
+                         JSONObject bbox = geo.getJSONObject("bbox");
 
                         south = bbox.getDouble("south");
                         east = bbox.getDouble("east");
@@ -141,7 +140,7 @@ public class GeoAdapter extends ArrayAdapter {
                     double latitude = geo.getDouble("lat");
                     double longitude = geo.getDouble("lng");
 
-                    Geolocation geolocation = new Geolocation(asciiName + "-" + geonameId.toString(), countryName, latitude, longitude, south, north, east, west);
+                    Geolocation geolocation = new Geolocation(geoId, asciiName, countryName, latitude, longitude, south, north, east, west);
 
                     geolocations.add(geolocation);
 

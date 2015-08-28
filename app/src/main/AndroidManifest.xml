@@ -41,10 +41,6 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".DetailActivity"
-            android:label="@string/title_activity_detail" >
-        </activity>
-        <activity
             android:name=".DetailMapActivity"
             android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_detail_map" >

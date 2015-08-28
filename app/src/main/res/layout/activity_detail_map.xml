@@ -16,7 +16,9 @@
               tools:context=".MapsActivity"
               android:name="com.google.android.gms.maps.SupportMapFragment"
               android:layout_below="@+id/frameLayout"
-        />
+              android:layout_alignParentLeft="true"
+              android:layout_alignParentStart="true"
+              android:layout_above="@+id/tv_country"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -27,14 +29,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="New Text"
             android:id="@+id/textView"
             android:layout_above="@+id/map"
             android:background="#ff9bc4"
             android:layout_alignParentTop="true"/>
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:id="@+id/tv_temp_progress"
             android:background="#8ddcff"
@@ -51,5 +52,15 @@
             android:textColor="#ffffff"/>
 
     </FrameLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Country:"
+        android:id="@+id/tv_country"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:padding="10dp"/>
 
 </RelativeLayout>

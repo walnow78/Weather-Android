@@ -59,7 +59,7 @@ public class SuggestionActivity extends AppCompatActivity {
 
                 bd.InsertGeolocation(geoadapter.items.get(position));
 
-                Intent intent = new Intent(SuggestionActivity.this, DetailActivity.class);
+                Intent intent = new Intent(SuggestionActivity.this, DetailMapActivity.class);
 
                 intent.putExtra("geo", geoadapter.items.get(position));
 

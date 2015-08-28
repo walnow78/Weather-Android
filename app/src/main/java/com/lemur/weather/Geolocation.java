@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 public class Geolocation implements Serializable {
 
+    private int geoId;
     private String name;
     private String description;
     private double latitude;
@@ -19,7 +20,8 @@ public class Geolocation implements Serializable {
     private double east;
     private double west;
 
-    public Geolocation(String name, String description, double latitude, double longitude, double south, double north, double east, double west) {
+    public Geolocation(int geoId, String name, String description, double latitude, double longitude, double south, double north, double east, double west) {
+        this.geoId = geoId;
         this.name = name;
         this.description = description;
         this.latitude = latitude;
@@ -28,6 +30,14 @@ public class Geolocation implements Serializable {
         this.north = north;
         this.east = east;
         this.west = west;
+    }
+
+    public int getGeoId() {
+        return geoId;
+    }
+
+    public void setGeoId(int geoId) {
+        this.geoId = geoId;
     }
 
     public String getName() {
